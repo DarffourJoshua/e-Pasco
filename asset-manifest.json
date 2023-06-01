@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/e-Pasco/static/css/main.c515c5ff.css",
-    "main.js": "/e-Pasco/static/js/main.1df8bafe.js",
+    "main.css": "/e-Pasco/static/css/main.480de8cf.css",
+    "main.js": "/e-Pasco/static/js/main.1447dd5d.js",
     "static/js/787.2fe64ff8.chunk.js": "/e-Pasco/static/js/787.2fe64ff8.chunk.js",
     "static/media/header-LOGO.jpg": "/e-Pasco/static/media/header-LOGO.5c5f5c2ee37962ce2217.jpg",
     "static/media/Test1.jpg": "/e-Pasco/static/media/Test1.e724fa5335cfd5e3408d.jpg",
     "static/media/Test3.jpg": "/e-Pasco/static/media/Test3.200219ddb4e6a8685e9d.jpg",
     "static/media/Test2.jpg": "/e-Pasco/static/media/Test2.323ebc51b370a23123c6.jpg",
     "index.html": "/e-Pasco/index.html",
-    "main.c515c5ff.css.map": "/e-Pasco/static/css/main.c515c5ff.css.map",
-    "main.1df8bafe.js.map": "/e-Pasco/static/js/main.1df8bafe.js.map",
+    "main.480de8cf.css.map": "/e-Pasco/static/css/main.480de8cf.css.map",
+    "main.1447dd5d.js.map": "/e-Pasco/static/js/main.1447dd5d.js.map",
     "787.2fe64ff8.chunk.js.map": "/e-Pasco/static/js/787.2fe64ff8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c515c5ff.css",
-    "static/js/main.1df8bafe.js"
+    "static/css/main.480de8cf.css",
+    "static/js/main.1447dd5d.js"
   ]
 }
