@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { faCheck, faTimes, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 //import Signup from './Signup';
 
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
+const USER_REGEX = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/ig;
 const PWD_REGEX = /^(?=.*[a-z])(?=.[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 
@@ -20,8 +21,7 @@ export default function Login() {
     const [passWFocus, setpassWFocus] = useState(false);
 
     const [errorMsg, setErrorMsg] = useState('');
-
-
+   // const [success, setSuccess] = useState(false);
 
     useEffect(() => {
         const result = USER_REGEX.test(username);
@@ -41,14 +41,32 @@ export default function Login() {
         setErrorMsg('');
     }, [username, passW])
 
-    return ( 
-    <section>
+    const nav = useNavigate();
+    const loc = useLocation();
+
+    const HandleSubmit = e => {
+        e.preventDefault();
+        const v1 = USER_REGEX.test(username);
+        const v2 = PWD_REGEX.test(passW);
+        if (!v1 || !v2) {
+            setErrorMsg('Invalid Entry');
+            return;
+        }
+
+        if(loc.state?.from) {
+            nav(loc.state.from)
+        }
+    }
+
+    return (
+    <>
+    {(<section>
         <p ref={errRef} className={errorMsg ? "errmsg" : "offscreen"}
                 aria-live='assertive'
         > 
             {errorMsg}
         </p>
-        <form>
+        <form onSubmit={HandleSubmit}>
             <label htmlFor='username' className='block-label'>
                 Username or Email:
                 <FontAwesomeIcon icon={faCheck} className={validUsername ? 'valid' : 'hide'} />
@@ -115,6 +133,7 @@ export default function Login() {
             </p>
 
     </form>
-    </section> 
+    </section> )}
+    </>
     );
 }

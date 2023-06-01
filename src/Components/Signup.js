@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // Using regex to filter the input values
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const EMAIL_REGEX =  /^[a-zA-Z][a-zA-Z0-9-_]{13,33}$/;
+const EMAIL_REGEX =  /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/;
 
 export default function Signup() {
     const firstNameRef = useRef(); //Set focus on the first name when the components loads
@@ -35,7 +35,7 @@ export default function Signup() {
     const [validMatch, setValidMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
 
-   // const [success, setSuccess] = useState(false);
+   const [success, setSuccess] = useState(false);
     const [errMsg, setErrMsg] = useState('');
 
     useEffect(() => {
@@ -81,25 +81,38 @@ export default function Signup() {
         setErrMsg('');
     }, [firstName, secondName,mail, pwd, matchPwd])
 
+    const handleSubmit = e => {
+        e.preventDefault();
+        const v1 = USER_REGEX.test(firstName);
+        const v2 = USER_REGEX.test(secondName);
+        const v3 = PWD_REGEX.test(pwd);
+
+        if (!v1 || !v2 || !v3) {
+            setErrMsg('Invalid Credentials');
+            return;
+        }
+
+        console.log(firstName, secondName, pwd);
+        setSuccess(true);
+    }
+
     return (
         <>
-        <section>
+        { success ? (
+            <section>
+                <h1> Succes!</h1>
+                <p><a href='/#'>Sign In</a></p>
+            </section>
+        ) : (<section>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}
                 aria-live='assertive'
             > {errMsg}</p>
             <h3>Signup: </h3>
-            <form>
+            <form onSubmit={handleSubmit}>
                 {/* First name */}
                 <label htmlFor='firstname'>
                     Firstname:
-                        <FontAwesomeIcon 
-                            icon={faCheck} 
-                            className={validNameOne ? 'valid' : 'hide'}
-                        />
-                        <FontAwesomeIcon 
-                            icon={faTimes} 
-                            className={validNameOne || !firstName ? 'hide' : 'invalid'}    
-                        />
+                        <FontAwesomeIcon icon={faCheck} className={validNameOne ? 'valid' : 'hide'} />
                 </label>
                 <input 
                     type='text' 
@@ -253,6 +266,7 @@ export default function Signup() {
             </p>
 
         </section>
+        )}
     </>
     );
 }
